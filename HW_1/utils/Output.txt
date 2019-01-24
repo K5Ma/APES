@@ -1,0 +1,31 @@
+User Information: k5m
+Operating System Type/Brand: linux-gnu
+OS Distribution: Ubuntu
+OS Version: 18.04
+Kernel Version: Linux 4.15.0-43-generic
+Kernel gcc version build: 7
+Kernel build time: #46-Ubuntu SMP Thu Dec 6 14:45:28 UTC 2018
+System Architecture information: x86_64
+Information on File System Memory: Filesystem     1K-blocks     Used Available Use% Mounted on
+udev             8170732        0   8170732   0% /dev
+tmpfs            1640200     2068   1638132   1% /run
+/dev/sda1       61795116 17892944  41159676  31% /
+tmpfs            8200992        0   8200992   0% /dev/shm
+tmpfs               5120        4      5116   1% /run/lock
+tmpfs            8200992        0   8200992   0% /sys/fs/cgroup
+/dev/loop0        144384   144384         0 100% /snap/gnome-3-26-1604/70
+/dev/loop1         13312    13312         0 100% /snap/gnome-characters/103
+/dev/loop2          2304     2304         0 100% /snap/gnome-calculator/260
+/dev/loop3          3840     3840         0 100% /snap/gnome-system-monitor/57
+/dev/loop4         91648    91648         0 100% /snap/core/6130
+/dev/loop6         14976    14976         0 100% /snap/gnome-logs/45
+/dev/loop5         14848    14848         0 100% /snap/gnome-logs/37
+/dev/loop10         3840     3840         0 100% /snap/gnome-system-monitor/51
+/dev/loop7         35584    35584         0 100% /snap/gtk-common-themes/319
+/dev/loop8          2432     2432         0 100% /snap/gnome-calculator/180
+/dev/loop9        144128   144128         0 100% /snap/gnome-3-26-1604/74
+/dev/loop11        89088    89088         0 100% /snap/core/4917
+/dev/loop12        35456    35456         0 100% /snap/gtk-common-themes/818
+/dev/loop13        13312    13312         0 100% /snap/gnome-characters/139
+tmpfs            1640196       16   1640180   1% /run/user/121
+tmpfs            1640196       24   1640172   1% /run/user/1000
