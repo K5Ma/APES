@@ -1,0 +1,171 @@
+Starting POSIX Queue IPC Demo...
+***** Init Thread ID: 140336625043200 ******
+Process ID: 72019
+Parent Process ID: 71949
+syscall(SYS_gettid): 72020
+***************************************
+[1551344660.945894] Thread 1 - Sending msg:
+                 |---> Contents: This is
+                 |---> Length: 7
+                 L---> LED control: 0
+[1551344660.945948] Thread 1 - Sending msg:
+                 |---> Contents: a sequence
+                 |---> Length: 10
+                 L---> LED control: 0
+[1551344660.945965] Thread 1 - Sending msg:
+                 |---> Contents: of 10 msgs
+                 |---> Length: 10
+                 L---> LED control: 0
+[1551344660.945982] Thread 1 - Sending msg:
+                 |---> Contents: sent by pthread1
+                 |---> Length: 16
+                 L---> LED control: 0
+[1551344660.945991] Thread 1 - Sending msg:
+                 |---> Contents: to pthread 2
+                 |---> Length: 12
+                 L---> LED control: 0
+[1551344660.946001] Thread 1 - Sending msg:
+                 |---> Contents: which will
+                 |---> Length: 10
+                 L---> LED control: 1
+[1551344660.946013] Thread 1 - Sending msg:
+                 |---> Contents: be recieved
+                 |---> Length: 11
+                 L---> LED control: 1
+[1551344660.946021] Thread 1 - Sending msg:
+                 |---> Contents: very
+                 |---> Length: 4
+                 L---> LED control: 1
+[1551344660.946031] Thread 1 - Sending msg:
+                 |---> Contents: very
+                 |---> Length: 4
+                 L---> LED control: 1
+[1551344660.946060] Thread 1 - Sending msg:
+                 |---> Contents: soon
+                 |---> Length: 4
+                 L---> LED control: 1
+***** Init Thread ID: 140336616650496 ******
+Process ID: 72019
+Parent Process ID: 71949
+syscall(SYS_gettid): 72021
+***************************************
+[1551344660.946203] Thread 2 - Sending msg:
+                 |---> Contents: This is
+                 |---> Length: 7
+                 L---> LED control: 1
+[1551344660.946237] Thread 2 - Sending msg:
+                 |---> Contents: a sequence
+                 |---> Length: 10
+                 L---> LED control: 1
+[1551344660.946288] Thread 2 - Sending msg:
+                 |---> Contents: of msgs
+                 |---> Length: 7
+                 L---> LED control: 1
+[1551344660.946344] Thread 2 - Sending msg:
+                 |---> Contents: sent by pthread 2
+                 |---> Length: 17
+                 L---> LED control: 1
+[1551344660.946375] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: This is
+                 |---> Length: 7
+                 L---> LED control: 1
+[1551344660.946424] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: a sequence
+                 |---> Length: 10
+                 L---> LED control: 1
+[1551344660.946433] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: of msgs
+                 |---> Length: 7
+                 L---> LED control: 1
+[1551344660.946439] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: sent by pthread 2
+                 |---> Length: 17
+                 L---> LED control: 1
+[1551344660.946448] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: to pthread 1
+                 |---> Length: 12
+                 L---> LED control: 1
+[1551344660.946471] Thread 2 - Sending msg:
+                 |---> Contents: to pthread 1
+                 |---> Length: 12
+                 L---> LED control: 1
+[1551344660.946527] Thread 2 - Sending msg:
+                 |---> Contents: it is
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946562] Thread 2 - Sending msg:
+                 |---> Contents: very cool
+                 |---> Length: 9
+                 L---> LED control: 0
+[1551344660.946614] Thread 2 - Sending msg:
+                 |---> Contents: how this all
+                 |---> Length: 12
+                 L---> LED control: 0
+[1551344660.946665] Thread 2 - Sending msg:
+                 |---> Contents: works
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946728] Thread 2 - Sending msg:
+                 |---> Contents: noice
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946745] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: This is
+                 |---> Length: 7
+                 L---> LED control: 0
+[1551344660.946782] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: a sequence
+                 |---> Length: 10
+                 L---> LED control: 0
+[1551344660.946799] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: it is
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946848] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: very cool
+                 |---> Length: 9
+                 L---> LED control: 0
+[1551344660.946857] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: how this all
+                 |---> Length: 12
+                 L---> LED control: 0
+[1551344660.946863] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: works
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946872] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: noice
+                 |---> Length: 5
+                 L---> LED control: 0
+[1551344660.946929] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: of 10 msgs
+                 |---> Length: 10
+                 L---> LED control: 0
+[1551344660.946967] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: sent by pthread1
+                 |---> Length: 16
+                 L---> LED control: 0
+[1551344660.946980] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: to pthread 2
+                 |---> Length: 12
+                 L---> LED control: 0
+[1551344660.946989] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: which will
+                 |---> Length: 10
+                 L---> LED control: 1
+[1551344660.946998] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: be recieved
+                 |---> Length: 11
+                 L---> LED control: 1
+[1551344660.947007] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: very
+                 |---> Length: 4
+                 L---> LED control: 1
+[1551344660.947015] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: very
+                 |---> Length: 4
+                 L---> LED control: 1
+[1551344660.947025] Thread 2 - Received msg from Thread 1:
+                 |---> Contents: soon
+                 |---> Length: 4
+                 L---> LED control: 1

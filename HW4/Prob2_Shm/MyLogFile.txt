@@ -1,0 +1,57 @@
+Starting Shared Memory IPC Demo...
+***** Init Thread ID: 140299418289920 ******
+Process ID: 71161
+Parent Process ID: 71118
+syscall(SYS_gettid): 71162
+***************************************
+[1551340610.954879] Thread 1 - Sending msg: This is a 
+[1551340610.954932] Thread 1 - Sending msg: sequence of 10 
+[1551340610.954945] Thread 1 - Sending msg: messages sent from 
+[1551340610.954952] Thread 1 - Sending msg: pthread1 to pthread2 
+[1551340610.954959] Thread 1 - Sending msg: using shared memory.
+
+[1551340610.954966] Thread 1 - Sending msg: The rest are LED controls:
+
+[1551340610.954973] Thread 1 - Sending msg: LED Control: ON
+
+[1551340610.954980] Thread 1 - Sending msg: LED Control: OFF
+
+[1551340610.954986] Thread 1 - Sending msg: LED Control: OFF
+
+[1551340610.954993] Thread 1 - Sending msg: LED Control: ON
+
+***** Init Thread ID: 140299409897216 ******
+Process ID: 71161
+Parent Process ID: 71118
+syscall(SYS_gettid): 71163
+***************************************
+[1551340610.955191] Thread 2 - Sending msg: This is a 
+[1551340610.955225] Thread 2 - Sending msg: sequence of 10 
+[1551340610.955236] Thread 2 - Sending msg: messages sent from 
+[1551340610.955243] Thread 2 - Sending msg: pthread2 to pthread1 
+[1551340610.955250] Thread 2 - Sending msg: using shared memory.
+
+[1551340610.955257] Thread 2 - Sending msg: The rest are LED controls:
+
+[1551340610.955264] Thread 2 - Sending msg: LED Control: OFF
+
+[1551340610.955271] Thread 2 - Sending msg: LED Control: OFF
+
+[1551340610.955278] Thread 2 - Sending msg: LED Control: ON
+
+[1551340610.955285] Thread 2 - Sending msg: LED Control: ON
+
+[1551340613.955734] Thread 1 - Received msg from Thread 2: This is a sequence of 10 messages sent from pthread2 to pthread1 using shared memory.
+The rest are LED controls:
+LED Control: OFF
+LED Control: OFF
+LED Control: ON
+LED Control: ON
+
+[1551340613.956004] Thread 2 - Received msg from Thread 1: This is a sequence of 10 messages sent from pthread1 to pthread2 using shared memory.
+The rest are LED controls:
+LED Control: ON
+LED Control: OFF
+LED Control: OFF
+LED Control: ON
+
