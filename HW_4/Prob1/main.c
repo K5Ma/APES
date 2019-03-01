@@ -17,7 +17,7 @@
 #include <stdbool.h> 
 #include <sys/socket.h> 
 #include <netinet/in.h> 
-
+#include <ctype.h>
 
 /* Defines */
 
@@ -448,8 +448,10 @@ void CountAlphabet(char* logfile, char* file)
 	
 	char char_read;										//Temp var to store got chars
 	/* Loop until End Of File */
-	while ( (char_read = fgetc(MyFileP) ) != EOF )
+	while( (!feof(MyFileP)) )
 	{
+		char_read = fgetc(MyFileP);
+		
 		KillCheck(1, logfile);
 		
 		/* Check char is an alphabet */
@@ -458,13 +460,12 @@ void CountAlphabet(char* logfile, char* file)
 			/* Convert to lowercase */
 			char_read = tolower(char_read);
 			
-			//DEEEEEEBUUUGG
-		//	printf("GOT CHAR: %c!\n", char_read);
-			
 			/* Check if it exisits in LL */
 			current = head;								//Reset current to head
 			if( !AlphabetCheckInLL(current, char_read) )
 			{
+				//printf("%c not in LL!\n", char_read);
+				
 				current = head;							//Reset current to head
 				/* If not, add it to LL */
 				AlphabetAddToLL(current, char_read);
@@ -554,8 +555,10 @@ void * Child_Thread2(void * args)
 			
 			MyFileP_Log = fopen(Arguments->LogFile, "a");
 			
-			while ( (char_read = fgetc(MyFileP_CMD) ) != EOF )
+			while( (!feof(MyFileP_CMD)) )
 			{
+				char_read = fgetc(MyFileP_CMD);
+				
 				KillCheck(2, Arguments->LogFile);
 				
 				fprintf(MyFileP_Log, "%c", char_read);
