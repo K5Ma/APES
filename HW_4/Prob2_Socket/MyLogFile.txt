@@ -1,171 +1,171 @@
 Starting Socket IPC Demo...
-***** Init Thread ID: 140400975025920 ******
-Process ID: 70985
-Parent Process ID: 70972
-syscall(SYS_gettid): 70986
+***** Init Thread ID: 139622212515584 ******
+Process ID: 35004
+Parent Process ID: 34981
+syscall(SYS_gettid): 35005
 ***************************************
-***** Init Thread ID: 140400966633216 ******
-Process ID: 70985
-Parent Process ID: 70972
-syscall(SYS_gettid): 70987
+***** Init Thread ID: 139622204122880 ******
+Process ID: 35004
+Parent Process ID: 34981
+syscall(SYS_gettid): 35006
 ***************************************
-[1551339908.873548] Thread 2 - Sending msg:
+[1551429164.890546] Thread 2 - Sending msg:
                  |---> Contents: Hello Pthread1
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.873704] Thread 1 - Received msg from Thread 2:
+[1551429164.890629] Thread 1 - Received msg from Thread 2:
                  |---> Contents: Hello Pthread1
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.873804] Thread 1 - Sending msg:
+[1551429164.890648] Thread 1 - Sending msg:
                  |---> Contents: Hi Pthread2
                  |---> Length: 11
                  L---> LED control: 1
-[1551339908.873893] Thread 2 - Received msg from Thread 1:
+[1551429164.890703] Thread 2 - Received msg from Thread 1:
                  |---> Contents: Hi Pthread2
                  |---> Length: 11
                  L---> LED control: 1
-[1551339908.873938] Thread 2 - Sending msg:
+[1551429164.890714] Thread 2 - Sending msg:
                  |---> Contents: How are you?
                  |---> Length: 12
                  L---> LED control: 1
-[1551339908.874004] Thread 1 - Received msg from Thread 2:
+[1551429164.890764] Thread 1 - Received msg from Thread 2:
                  |---> Contents: How are you?
                  |---> Length: 12
                  L---> LED control: 1
-[1551339908.874277] Thread 1 - Sending msg:
+[1551429164.890779] Thread 1 - Sending msg:
                  |---> Contents: I'm good, you?
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.874411] Thread 2 - Received msg from Thread 1:
+[1551429164.890914] Thread 2 - Received msg from Thread 1:
                  |---> Contents: I'm good, you?
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.874443] Thread 2 - Sending msg:
+[1551429164.890928] Thread 2 - Sending msg:
                  |---> Contents: I'm good
                  |---> Length: 8
                  L---> LED control: 1
-[1551339908.874651] Thread 1 - Received msg from Thread 2:
+[1551429164.890979] Thread 1 - Received msg from Thread 2:
                  |---> Contents: I'm good
                  |---> Length: 8
                  L---> LED control: 1
-[1551339908.874730] Thread 2 - Received msg from Thread 1:
+[1551429164.890993] Thread 1 - Sending msg:
                  |---> Contents: What are we doing?
                  |---> Length: 18
                  L---> LED control: 1
-[1551339908.874785] Thread 2 - Sending msg:
-                 |---> Contents: We are demoing IPC using Sockets
-                 |---> Length: 32
-                 L---> LED control: 1
-[1551339908.874858] Thread 1 - Sending msg:
+[1551429164.891098] Thread 2 - Received msg from Thread 1:
                  |---> Contents: What are we doing?
                  |---> Length: 18
                  L---> LED control: 1
-[1551339908.874894] Thread 1 - Received msg from Thread 2:
+[1551429164.891132] Thread 2 - Sending msg:
                  |---> Contents: We are demoing IPC using Sockets
                  |---> Length: 32
                  L---> LED control: 1
-[1551339908.874973] Thread 2 - Received msg from Thread 1:
+[1551429164.891199] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: We are demoing IPC using Sockets
+                 |---> Length: 32
+                 L---> LED control: 1
+[1551429164.891216] Thread 1 - Sending msg:
                  |---> Contents: Huh... cool...
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.875021] Thread 2 - Sending msg:
-                 |---> Contents: Yeah.. and we are logging as well
-                 |---> Length: 33
-                 L---> LED control: 1
-[1551339908.875072] Thread 1 - Sending msg:
+[1551429164.891342] Thread 2 - Received msg from Thread 1:
                  |---> Contents: Huh... cool...
                  |---> Length: 14
                  L---> LED control: 1
-[1551339908.875108] Thread 1 - Received msg from Thread 2:
+[1551429164.891357] Thread 2 - Sending msg:
                  |---> Contents: Yeah.. and we are logging as well
                  |---> Length: 33
                  L---> LED control: 1
-[1551339908.875163] Thread 1 - Sending msg:
+[1551429164.891408] Thread 1 - Received msg from Thread 2:
+                 |---> Contents: Yeah.. and we are logging as well
+                 |---> Length: 33
+                 L---> LED control: 1
+[1551429164.891422] Thread 1 - Sending msg:
                  |---> Contents: Logging as well? Cool.
                  |---> Length: 22
                  L---> LED control: 1
-[1551339908.875350] Thread 2 - Received msg from Thread 1:
+[1551429164.891554] Thread 2 - Received msg from Thread 1:
                  |---> Contents: Logging as well? Cool.
                  |---> Length: 22
                  L---> LED control: 1
-[1551339908.875432] Thread 2 - Sending msg:
+[1551429164.891572] Thread 2 - Sending msg:
                  |---> Contents: Each thread will send 10 messages
                  |---> Length: 33
                  L---> LED control: 1
-[1551339908.875571] Thread 1 - Received msg from Thread 2:
+[1551429164.891622] Thread 1 - Received msg from Thread 2:
                  |---> Contents: Each thread will send 10 messages
                  |---> Length: 33
                  L---> LED control: 1
-[1551339908.875645] Thread 1 - Sending msg:
+[1551429164.891668] Thread 1 - Sending msg:
                  |---> Contents: I see.. so a total of 20 messages?
                  |---> Length: 34
                  L---> LED control: 1
-[1551339908.875831] Thread 2 - Received msg from Thread 1:
+[1551429164.891798] Thread 2 - Received msg from Thread 1:
                  |---> Contents: I see.. so a total of 20 messages?
                  |---> Length: 34
                  L---> LED control: 1
-[1551339908.875928] Thread 2 - Sending msg:
+[1551429164.891813] Thread 2 - Sending msg:
                  |---> Contents: Yes
                  |---> Length: 3
                  L---> LED control: 1
-[1551339908.876079] Thread 1 - Received msg from Thread 2:
+[1551429164.891864] Thread 1 - Received msg from Thread 2:
                  |---> Contents: Yes
                  |---> Length: 3
                  L---> LED control: 1
-[1551339908.876184] Thread 1 - Sending msg:
+[1551429164.891875] Thread 1 - Sending msg:
                  |---> Contents: How much is left?
                  |---> Length: 17
                  L---> LED control: 1
-[1551339908.876267] Thread 2 - Received msg from Thread 1:
+[1551429164.892000] Thread 2 - Received msg from Thread 1:
                  |---> Contents: How much is left?
                  |---> Length: 17
                  L---> LED control: 1
-[1551339908.876343] Thread 2 - Sending msg:
+[1551429164.892014] Thread 2 - Sending msg:
                  |---> Contents: You have 3 messages left to send, I have 2
                  |---> Length: 42
                  L---> LED control: 1
-[1551339908.876462] Thread 1 - Received msg from Thread 2:
+[1551429164.892062] Thread 1 - Received msg from Thread 2:
                  |---> Contents: You have 3 messages left to send, I have 2
                  |---> Length: 42
                  L---> LED control: 1
-[1551339908.876527] Thread 1 - Sending msg:
+[1551429164.892076] Thread 1 - Sending msg:
                  |---> Contents: Oh damn..
                  |---> Length: 9
                  L---> LED control: 1
-[1551339908.876696] Thread 2 - Received msg from Thread 1:
+[1551429164.892197] Thread 2 - Received msg from Thread 1:
                  |---> Contents: Oh damn..
                  |---> Length: 9
                  L---> LED control: 1
-[1551339908.876748] Thread 2 - Sending msg:
+[1551429164.892229] Thread 2 - Sending msg:
                  |---> Contents: Yeah...
                  |---> Length: 7
                  L---> LED control: 1
-[1551339908.876836] Thread 1 - Received msg from Thread 2:
+[1551429164.892294] Thread 1 - Received msg from Thread 2:
                  |---> Contents: Yeah...
                  |---> Length: 7
                  L---> LED control: 1
-[1551339908.876906] Thread 1 - Sending msg:
+[1551429164.892310] Thread 1 - Sending msg:
                  |---> Contents: Well, goodbye Pthread2
                  |---> Length: 22
                  L---> LED control: 1
-[1551339908.877089] Thread 2 - Received msg from Thread 1:
+[1551429164.892367] Thread 2 - Received msg from Thread 1:
                  |---> Contents: Well, goodbye Pthread2
                  |---> Length: 22
                  L---> LED control: 1
-[1551339908.877146] Thread 2 - Sending msg:
+[1551429164.892383] Thread 2 - Sending msg:
                  |---> Contents: Goodbye u_u
                  |---> Length: 11
                  L---> LED control: 1
-[1551339908.877251] Thread 1 - Received msg from Thread 2:
+[1551429164.892568] Thread 1 - Received msg from Thread 2:
                  |---> Contents: Goodbye u_u
                  |---> Length: 11
                  L---> LED control: 1
-[1551339908.877318] Thread 1 - Sending msg:
+[1551429164.892582] Thread 1 - Sending msg:
                  |---> Contents: I am alone... goodbye...
                  |---> Length: 24
                  L---> LED control: 1
-[1551339908.877403] Thread 2 - Received msg from Thread 1:
+[1551429164.892722] Thread 2 - Received msg from Thread 1:
                  |---> Contents: I am alone... goodbye...
                  |---> Length: 24
                  L---> LED control: 1

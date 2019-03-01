@@ -282,8 +282,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "Hi Pthread2");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -297,9 +297,9 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "I'm good, you?");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
-	
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
+
 	KillCheck();
 	
 	//5 - R
@@ -312,8 +312,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "What are we doing?");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -327,8 +327,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "Huh... cool...");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -342,8 +342,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "Logging as well? Cool.");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -357,8 +357,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "I see.. so a total of 20 messages?");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -372,8 +372,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "How much is left?");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -387,8 +387,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "Oh damn..");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -402,8 +402,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "Well, goodbye Pthread2");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -417,8 +417,8 @@ void * Thread1_Server(void * args)
 	strcpy(MsgP1.Msg, "I am alone... goodbye...");
 	MsgP1.Len = strlen(MsgP1.Msg);
 	MsgP1.LED_Cntrl = true;
-	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(1, &MsgP1);
+	send(new_socket , &MsgP1, sizeof(MsgStruct), 0);
 	
 	printf("**DEBUG** Exiting Thread 1...\n");
 	
@@ -475,8 +475,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Hello Pthread1");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -490,8 +490,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "How are you?");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -505,8 +505,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "I'm good");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -520,8 +520,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "We are demoing IPC using Sockets");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -536,8 +536,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Yeah.. and we are logging as well");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -551,8 +551,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Each thread will send 10 messages");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -566,8 +566,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Yes");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -581,8 +581,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "You have 3 messages left to send, I have 2");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -596,8 +596,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Yeah...");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
@@ -611,8 +611,8 @@ void * Thread2_Client(void * args)
 	strcpy(MsgP2.Msg, "Goodbye u_u");
 	MsgP2.Len = strlen(MsgP2.Msg);
 	MsgP2.LED_Cntrl = true;
-	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	LogFile_MsgSend(2, &MsgP2);
+	send(sock, &MsgP2, sizeof(MsgStruct), 0);
 	
 	KillCheck();
 	
