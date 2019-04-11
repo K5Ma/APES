@@ -1,0 +1,94 @@
+/*
+ * Temp_Task.c
+ *
+ *  Created on: Apr 9, 2019
+ *      Author: Khalid AlAwadhi
+ */
+#include "Temp_Task.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+
+
+
+//FreeRTOS includes
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+#include "My_TMP102_Driver.h"
+
+/* Global Variables */
+extern QueueHandle_t xQueue_Logger;
+
+
+uint8_t Temp_TaskInit()
+{
+    //Create task, if it fails return 1, else 0
+    if( xTaskCreate(Temp_Task,						/* The function that implements the task */
+			   (const portCHAR *)"Temp",			/* The text name assigned to the task - for debug only as it is not used by the kernel */
+			   ((configMINIMAL_STACK_SIZE) * 1),	/* The size of the stack to allocate to the task */
+			   NULL,								/* The parameter passed to the task */
+			   PRIORITY_TEMP_TASK, 					/* The priority assigned to the task */
+			   NULL)								/* The task handle is not required, so NULL is passed */
+    			!= pdTRUE
+      )
+      {
+    	return 1;
+      }
+
+	return 0;
+}
+
+
+
+void Temp_Task(void *pvParameters)
+{
+	/* Init I2C0 */
+	Init_I2C0();
+
+	/* Init PIN PM5 to be an INPUT for teh Alert PIN coming from the sensor */
+	Init_Alert_PIN_Polling();
+
+	/* Set fault tolerance setting */
+	TMP102_SetFault(0);					//Trigger alert immediately
+
+	/* Set the polarity of the alert */
+	TMP102_SetAlertPolarity(1);			//Active HIGH
+
+	/* Set sensor in Comparator Mode */
+	TMP102_SetAlertMode(0);				//Comparator Mode
+
+	/* Set the Conversion Rate */
+	TMP102_SetConversionRate(2);		//4Hz
+
+	/* Set Extended mode */
+	TMP102_SetExtendedMode(0);			//12-BIT (-55C to +128C)
+
+	/* Set T_HIGH, the upper limit to trigger the alert on */
+	TMP102_SetHighTempC(30.0);
+
+	/* Set T_LOW, the lower limit to turn off the alert */
+	TMP102_SetLowTempC(26.0);
+
+
+	 /* Block for 100 ms (10Hz) */
+	const TickType_t xDelay = 100 / portTICK_PERIOD_MS;
+
+
+	while(1)
+	{
+
+		float test_c = TMP102_ReadTempC();
+
+		Alert_PIN_Poll();
+
+	}
+}

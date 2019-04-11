@@ -1,0 +1,156 @@
+/*
+ * AESD (APES) HW 5
+ *
+ * By Khalid AlAwadhi - Spring 2019
+ *
+ * Uses FreeRTOS 9.0, additionally all the driver source files were updated to 2.1.4.178
+ *
+ * This base project was gotten from GitHub:
+ * https://github.com/akobyl/TM4C129_FreeRTOS_Demo
+ *
+ */
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+
+//TivaWare includes
+#include "driverlib/sysctl.h"
+#include "driverlib/debug.h"
+#include "drivers/pinout.h"
+#include "utils/uartstdio.h"
+
+//FreeRTOS includes
+#include "FreeRTOSConfig.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+#include "Logger_Task.h"
+#include "Temp_Task.h"
+#include "LED_Task.h"
+
+/* Global Variables */
+QueueHandle_t xQueue_Logger = NULL;				//This is the queue the Logger Task will read from and other tasks will send to
+
+
+
+/*
+ * ++++++++++ TO-DO: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * 1- [COMPLETED] CREATE TEMPRATURE TASK
+ * 				L-> CREATED Temp_Task.h/.c
+ *
+ * 2- [COMPLETED] CREATE LED TASK
+ * 				L-> CREATED LED_Task.h/.c
+ *
+ * 3- [COMPLETED] CREATE LOGGER TASK
+ * 				L-> CREATED Logger_Task.h/.c
+ *
+ * 4- [COMPLETED] temperature task should read temperature values from the TMP102 sensor at a frequency of 1Hz
+ *
+ * 5- [COMPLETED] The temperature value read along with a timestamp should be passed as a structure to the
+ *       logger task using FreeRTOS IPC mechanism.
+ *
+ * 6- [COMPLETED] The LED Task should toggle LEDs D1 and D2 on the TIVA board at a frequency of 10Hz, and pass
+ *       a structure containing a time stamp, toggle count and your name to the Logger task using a
+ *       FreeRTOS mechanism.
+ *
+ * 7- [] The logger task should receive the messages from both the above tasks and log these values to
+ *       UART so that the logs can be viewed on the HOST machine.
+ *
+ * 8- [COMPLETED] IMPLEMENT QUEUE IN LOGGER TASK
+ *
+ * 9- [COMPLETED] INIT UART AND TEST
+ *
+ * 10- [COMPLETED] ADD MY ERROR LOG FUNCTION
+ * 				L-> CHANGED IT HEAVILY, IT IS NOW Log_UART() FOUND IN Master_Functions.h/.c
+ *
+ * 11- [] BONUS: Create an alert task which would be notified only when temperature goes above some
+ * 		  threshold (preferably using some FreeRTOS API). This task must log some kind of alert statements to
+ * 		  UART until temperature is out of the normal range.
+ *
+ * 12- [COMPLETED!!] CREATE I2C DRIVER FOR TMP102
+ * 				L-> CREATED My_TMP102.h/.c (PORTED MANUALLY FROM ARDUINO LIB - FASTER THAN FROM SCRATCH)
+ *
+ * 13- [COMPLETED!!] ADD ALERT PIN SUPPORT AND REST OF ALERT FUNCTIONS TO My_TMP102 DRIVER LIBRARY
+ * 				L-> TOOK A LONG TIME BUT I THINK IT WILL BE WORTH IT IN THE FUTURE TO REUSE
+ *
+ * 14- [COMPLETED] DOUBLE CHECK I2C TWO BYTE SEND
+ *
+ * 15- []
+ *
+ *
+ * +++++++++++++++++++++ QUESTIONS: +++++++++++++++++++++
+ * - Is the current way I am sending messages correct and efficient? While searching I saw that pointers are used for
+ *   large structs, however, if I declare a pointer struct and send it doesn't the pointer get overwritten the next
+ *   time I send a message using the same pointer? Meaning if I use pointer I would have to malloc first then free
+ *   after I receive and read it? Correct?
+ *
+ * -
+ *
+ */
+
+
+int main()
+{
+	/* Initialize system clock to 120 MHz */
+	uint32_t output_clock_rate_hz = SysCtlClockFreqSet( (SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480), SYSTEM_CLOCK);
+	ASSERT(output_clock_rate_hz == SYSTEM_CLOCK);
+
+	/* Initialize the GPIO pins for the Launchpad */
+	PinoutSet(false, false);
+
+	/* Set up the UART which is connected to the virtual COM port */
+	UARTStdioConfig(UART_PORT, UART_BAUD, SYSTEM_CLOCK);
+	Log_UART(Main, "INFO", "UART initialized successfully!");
+
+	/* Init Logger Task */
+	if(Logger_TaskInit())
+	{
+		Log_UART(Main, "ERROR", "Unable to init Logger task x_x");
+	}
+
+	/* Init Temperature Task */
+	if(Temp_TaskInit())
+	{
+		Log_UART(Main, "ERROR", "Unable to init Temp task x_x");
+	}
+
+	/* Init LED Task */
+	if(LED_TaskInit())
+	{
+		Log_UART(Main, "ERROR", "Unable to init LED task x_x");
+	}
+
+	vTaskStartScheduler();
+	return 0;
+}
+
+
+
+/*  ASSERT() Error function
+ *
+ *  failed ASSERTS() from driverlib/debug.h are executed in this function
+ */
+void __error__(char *pcFilename, uint32_t ui32Line)
+{
+    // Place a breakpoint here to capture errors until logging routine is finished
+    while (1)
+    {
+    }
+}
+
+
+void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTaskName )
+{
+	( void ) pcTaskName;
+	( void ) pxTask;
+
+	/* Run time stack overflow checking is performed if
+	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+	function is called if a stack overflow is detected. */
+	taskDISABLE_INTERRUPTS();
+	for( ;; );
+}

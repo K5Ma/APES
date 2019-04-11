@@ -1,0 +1,123 @@
+/*
+ * My_TMP102_Driver.c
+ *
+ *  Created on: Apr 10, 2019
+ *      Author: Khalid AlAwadhi
+ *
+ *  This library was developed by referencing the Arduino code written by:
+ *  Alex Wende @ SparkFun Electronics - TMP102_example.ino
+ */
+#include "My_TMP102_Driver.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+#include "driverlib/i2c.h"
+
+//FreeRTOS includes
+
+//My includes
+
+
+
+
+void TMP102_Wakeup()
+{
+	uint8_t registerByte; // Store the data from the register here
+
+	 //Change pointer address to configuration register (1)
+	  openPointerRegister(CONFIG_REGISTER);
+
+	  // Read current configuration register value
+	//  registerByte = readRegister(0);
+
+	  registerByte &= 0xFE;	// Clear SD (bit 0 of first byte)
+
+	  // Set configuration registers
+	//  Wire.beginTransmission(_address);
+//	  Wire.write(CONFIG_REGISTER);	// Point to configuration register
+//	  Wire.write(registerByte);	    // Write first byte
+//	  Wire.endTransmission(); 	    // Close communication with TMP102
+}
+
+void TMP102_OpenPointerRegister(uint8_t pointerReg)
+{
+//	Wire.beginTransmission(_address); // Connect to TMP102
+//	Wire.write(pointerReg); // Open specified register
+	I2CSendByte(TMP102_ADDR, pointerReg, 0x01)
+//	Wire.endTransmission(); // Close communication with TMP102
+}
+
+
+uint8_t TMP102_readRegister(bool registerNumber)
+{
+	uint8_t registerByte[2];	// We'll store the data from the registers here
+
+	// Read current configuration register value
+//	Wire.requestFrom(_address, 2); 	// Read two bytes from TMP102
+//	registerByte[0] = (Wire.read());	// Read first byte
+//	registerByte[1] = (Wire.read());	// Read second byte
+
+	return registerByte[registerNumber];
+}
+
+
+void I2CSendByte(uint8_t target_address, uint8_t register_address, uint8_t data)
+{
+   //
+   // Tell the master module what address it will place on the bus when
+   // communicating with the slave.  Set the address to LUX_SENSOR
+   // (as set in the slave module).  The receive parameter is set to false
+   // which indicates the I2C Master is initiating a writes to the slave.  If
+   // true, that would indicate that the I2C Master is initiating reads from
+   // the slave.
+   //
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, false);
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, register_address);
+
+   //
+   // Initiate send of data from the master.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+
+
+   /*
+   ** now wait for it to be non-busy
+   */
+   while(I2CMasterBusy(I2C2_BASE));
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, data);
+
+   //
+   // Initiate send of data from the master.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+}

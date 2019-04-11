@@ -1,0 +1,24 @@
+
+**** Build of configuration Debug for project FreeRTOS_tiva_demo ****
+
+"C:\\ti\\ccs900\\ccs\\utils\\bin\\gmake" -k all 
+ 
+astyle --options="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/astyle_options" "C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/*.c" "C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/*.h" --exclude="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/driverlib" --exclude="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/FreeRTOS"
+makefile:227: recipe for target 'pre-build' failed
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs900/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me --include_path="C:/ti/ccs900/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include" --include_path="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/FreeRTOS/portable/CCS/ARM_CM4F" --include_path="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo" --include_path="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/driverlib" --include_path="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/FreeRTOS/include" --include_path="C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/FreeRTOS/portable/CCS/ARM_CM4F" -g --gcc --define=ccs="ccs" --define=TARGET_IS_TM4C129_RA1 --define=PART_TM4C1294NCPDT --define=DEBUG --display_error_number --diag_wrap=off --diag_warning=225 --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+process_begin: CreateProcess(NULL, astyle --options=C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/astyle_options C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/*.c C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/*.h --exclude=C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/driverlib --exclude=C:/Users/ik5m/OneDrive/Current_Semester/ECEN_5013_APES/CodeComposer_Wrkspace/FreeRTOS_tiva_demo/FreeRTOS, ...) failed.
+ 
+gmake[1]: [pre-build] Error 2 (ignored)
+Finished building: "../main.c"
+ 
+Building target: "FreeRTOS_tiva_demo.out"
+Invoking: ARM Linker
+"C:/ti/ccs900/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 --abi=eabi -me -g --gcc --define=ccs="ccs" --define=TARGET_IS_TM4C129_RA1 --define=PART_TM4C1294NCPDT --define=DEBUG --display_error_number --diag_wrap=off --diag_warning=225 -z -m"FreeRTOS_tiva_demo.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs900/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/lib" -i"C:/ti/ccs900/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include" --reread_libs --display_error_number --diag_wrap=off --warn_sections --xml_link_info="FreeRTOS_tiva_demo_linkInfo.xml" --rom_model -o "FreeRTOS_tiva_demo.out" "./main.obj" "./tm4c1294ncpdt_startup_ccs.obj" "./FreeRTOS/croutine.obj" "./FreeRTOS/event_groups.obj" "./FreeRTOS/list.obj" "./FreeRTOS/queue.obj" "./FreeRTOS/tasks.obj" "./FreeRTOS/timers.obj" "./FreeRTOS/portable/CCS/ARM_CM4F/port.obj" "./FreeRTOS/portable/CCS/ARM_CM4F/portasm.obj" "./FreeRTOS/portable/MemMang/heap_2.obj" "./driverlib/adc.obj" "./driverlib/aes.obj" "./driverlib/can.obj" "./driverlib/comp.obj" "./driverlib/cpu.obj" "./driverlib/crc.obj" "./driverlib/des.obj" "./driverlib/eeprom.obj" "./driverlib/emac.obj" "./driverlib/epi.obj" "./driverlib/epi_workaround_ccs.obj" "./driverlib/flash.obj" "./driverlib/fpu.obj" "./driverlib/gpio.obj" "./driverlib/hibernate.obj" "./driverlib/i2c.obj" "./driverlib/interrupt.obj" "./driverlib/lcd.obj" "./driverlib/mpu.obj" "./driverlib/onewire.obj" "./driverlib/pwm.obj" "./driverlib/qei.obj" "./driverlib/shamd5.obj" "./driverlib/ssi.obj" "./driverlib/sw_crc.obj" "./driverlib/sysctl.obj" "./driverlib/sysexc.obj" "./driverlib/systick.obj" "./driverlib/timer.obj" "./driverlib/uart.obj" "./driverlib/udma.obj" "./driverlib/usb.obj" "./driverlib/watchdog.obj" "./drivers/pinout.obj" "./utils/uartstdio.obj" "../tm4c1294ncpdt.cmd"  -llibc.a 
+<Linking>
+Finished building target: "FreeRTOS_tiva_demo.out"
+ 
+
+**** Build Finished ****

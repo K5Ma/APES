@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="T_HIGH_val" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="T_HIGH_val"/>
+			<item value="registerByte"/>
+			<item value="digitalTemp"/>
+			<item value="target_address"/>
+			<item value="I2C2_BASE"/>
+			<item value="sprintf"/>
+			<item value="xTaskGetHandle"/>
+			<item value="perror"/>
+			<item value="strerror"/>
+			<item value="strerror_r"/>
+			<item value="ROM_GPIOPinWrite"/>
+			<item value="ROM_GPIOPinTypeGPIOOutput"/>
+			<item value="ROM_GPIOPinTypeGPIOInput"/>
+			<item value="ROM_GPIOPinTypeUSBAnalog"/>
+			<item value="ROM_GPIOPinTypeUART"/>
+		</list>
+		<list key="replacehistory">
+			<item value="T_LOW_val"/>
+			<item value="RegisterByte"/>
+			<item value="RawTempData"/>
+			<item value="Target_Address"/>
+			<item value="I2C0_BASE"/>
+			<item value="GPIOPinWrite"/>
+			<item value="GPIOPinTypeGPIOOutput"/>
+			<item value="GPIOPinTypeGPIOInput"/>
+			<item value="GPIOPinTypeUSBAnalog"/>
+			<item value="GPIOPinTypeUART"/>
+			<item value="GPIOPinConfigure"/>
+			<item value="SysCtlPeripheralEnable"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="284" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="462" key="DIALOG_HEIGHT"/>
+		<item value="1011" key="DIALOG_X_ORIGIN"/>
+		<item value="414" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

@@ -1,0 +1,50 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../My_Includes/LED_Task.c \
+../My_Includes/Logger_Task.c \
+../My_Includes/Master_Functions.c \
+../My_Includes/My_TMP102_Driver.c \
+../My_Includes/Temp_Task.c 
+
+C_DEPS += \
+./My_Includes/LED_Task.d \
+./My_Includes/Logger_Task.d \
+./My_Includes/Master_Functions.d \
+./My_Includes/My_TMP102_Driver.d \
+./My_Includes/Temp_Task.d 
+
+OBJS += \
+./My_Includes/LED_Task.obj \
+./My_Includes/Logger_Task.obj \
+./My_Includes/Master_Functions.obj \
+./My_Includes/My_TMP102_Driver.obj \
+./My_Includes/Temp_Task.obj 
+
+OBJS__QUOTED += \
+"My_Includes\LED_Task.obj" \
+"My_Includes\Logger_Task.obj" \
+"My_Includes\Master_Functions.obj" \
+"My_Includes\My_TMP102_Driver.obj" \
+"My_Includes\Temp_Task.obj" 
+
+C_DEPS__QUOTED += \
+"My_Includes\LED_Task.d" \
+"My_Includes\Logger_Task.d" \
+"My_Includes\Master_Functions.d" \
+"My_Includes\My_TMP102_Driver.d" \
+"My_Includes\Temp_Task.d" 
+
+C_SRCS__QUOTED += \
+"../My_Includes/LED_Task.c" \
+"../My_Includes/Logger_Task.c" \
+"../My_Includes/Master_Functions.c" \
+"../My_Includes/My_TMP102_Driver.c" \
+"../My_Includes/Temp_Task.c" 
+
+

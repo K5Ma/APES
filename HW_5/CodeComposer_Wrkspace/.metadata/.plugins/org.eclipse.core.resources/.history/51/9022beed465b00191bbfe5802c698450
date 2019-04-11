@@ -1,0 +1,96 @@
+/*
+ * LED_Task.c
+ *
+ *  Created on: Apr 7, 2019
+ *      Author: Khalid AlAwadhi
+ */
+#include "LED_Task.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+
+//FreeRTOS includes
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+
+/* Global Variables */
+extern QueueHandle_t xQueue_Logger;
+
+
+uint8_t LED_TaskInit()
+{
+    //Create task, if it fails return 1, else 0
+    if( xTaskCreate(LED_Task,						/* The function that implements the task */
+			   (const portCHAR *)"LED",				/* The text name assigned to the task - for debug only as it is not used by the kernel */
+			   ((configMINIMAL_STACK_SIZE) * 1),	/* The size of the stack to allocate to the task */
+			   NULL,								/* The parameter passed to the task */
+			   PRIORITY_LED_TASK, 					/* The priority assigned to the task */
+			   NULL)								/* The task handle is not required, so NULL is passed */
+    			!= pdTRUE
+      )
+      {
+    	return 1;
+      }
+
+	return 0;
+}
+
+
+
+void LED_Task(void *pvParameters)
+{
+	/* Init LED D1 to be a GPIO OUTPUT */
+	GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_1);
+
+	/* Init LED D2 to be a GPIO OUTPUT */
+	GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);
+
+	/* Variable to keep track of how many times the LEDs were toggled */
+	uint16_t ToggleCount = 0;
+
+	 /* Block for 100 ms (10Hz) */
+	const TickType_t xDelay = 100 / portTICK_PERIOD_MS;
+
+
+	while(1)
+	{
+		/* Turn D1 and D2 ON */
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_PIN_1);
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);
+
+		vTaskDelay(xDelay);
+
+		/* Turn D1 and D2 OFF */
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, 0);
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, 0);
+
+		vTaskDelay(xDelay);
+
+		ToggleCount++;
+
+		/* Create Msg to send */
+		struct MsgStruct TXMessage;
+		TXMessage.Source = LED;
+		strcpy(TXMessage.Msg, "Khalid");
+		TXMessage.Value = ToggleCount;
+
+		/* Send Msg to Logger Task */
+		xQueueSend( xQueue_Logger, &TXMessage, ( TickType_t ) 0 );
+	}
+}
+
+
+
+
+

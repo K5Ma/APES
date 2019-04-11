@@ -1,0 +1,38 @@
+/*
+ * LED_Task.h
+ *
+ *  Created on: Apr 7, 2019
+ *      Author: Khalid AlAwadhi
+ */
+
+#ifndef MY_INCLUDES_LED_TASK_H_
+#define MY_INCLUDES_LED_TASK_H_
+
+#include <stdint.h>
+
+/**************************************************************************************************************
+ * USAGE: This task simply toggles the user LED at a 1 Hz rate.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ *
+ **************************************************************************************************************/
+static void LEDTask(void *pvParameters);
+
+
+
+/**************************************************************************************************************
+ * USAGE: Initializes the LED task.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ *
+ **************************************************************************************************************/
+uint8_t LEDTaskInit(void);
+
+
+#endif /* MY_INCLUDES_LED_TASK_H_ */

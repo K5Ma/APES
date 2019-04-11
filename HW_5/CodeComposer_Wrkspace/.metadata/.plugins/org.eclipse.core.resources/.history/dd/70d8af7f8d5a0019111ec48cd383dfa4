@@ -1,0 +1,28 @@
+/*
+ * Global_Defines.h
+ *
+ *  Created on: Apr 8, 2019
+ *      Author: ik5m
+ */
+
+#ifndef MY_INCLUDES_GLOBAL_DEFINES_H_
+#define MY_INCLUDES_GLOBAL_DEFINES_H_
+
+
+/*****************************************
+ *      System Clock Rate, 120 MHz       *
+ *****************************************/
+#define SYSTEM_CLOCK    120000000U
+
+/*****************************************
+ *      Priorities of Tasks              *
+ *****************************************/
+#define PRIORITY_LOGGER_TASK			0
+#define PRIORITY_TEMPRATURE_TASK		0
+#define PRIORITY_LED_TASK				0
+
+
+
+
+
+#endif /* MY_INCLUDES_GLOBAL_DEFINES_H_ */

@@ -1,0 +1,63 @@
+/*
+ * My_TMP102_Driver.c
+ *
+ *  Created on: Apr 10, 2019
+ *      Author: Khalid AlAwadhi
+ *
+ *  This library was developed by referencing the Arduino code written by:
+ *  Alex Wende @ SparkFun Electronics - TMP102_example.ino
+ */
+#include "My_TMP102_Driver.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+
+//FreeRTOS includes
+
+//My includes
+
+
+
+
+void TMP102_Wakeup()
+{
+	uint8_t registerByte; // Store the data from the register here
+
+	 //Change pointer address to configuration register (1)
+	  openPointerRegister(CONFIG_REGISTER);
+
+	  // Read current configuration register value
+	//  registerByte = readRegister(0);
+
+	  registerByte &= 0xFE;	// Clear SD (bit 0 of first byte)
+
+	  // Set configuration registers
+	//  Wire.beginTransmission(_address);
+//	  Wire.write(CONFIG_REGISTER);	// Point to configuration register
+//	  Wire.write(registerByte);	    // Write first byte
+//	  Wire.endTransmission(); 	    // Close communication with TMP102
+}
+
+void TMP102_OpenPointerRegister(uint8_t pointerReg)
+{
+//	Wire.beginTransmission(_address); // Connect to TMP102
+//	Wire.write(pointerReg); // Open specified register
+//	Wire.endTransmission(); // Close communication with TMP102
+}
+
+
+uint8_t TMP102_readRegister(bool registerNumber)
+{
+	uint8_t registerByte[2];	// We'll store the data from the registers here
+
+	// Read current configuration register value
+//	Wire.requestFrom(_address, 2); 	// Read two bytes from TMP102
+//	registerByte[0] = (Wire.read());	// Read first byte
+//	registerByte[1] = (Wire.read());	// Read second byte
+
+	return registerByte[registerNumber];
+}

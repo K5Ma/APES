@@ -1,0 +1,43 @@
+/*
+ * LED_Task.h
+ *
+ *  Created on: Apr 7, 2019
+ *      Author: Khalid AlAwadhi
+ */
+
+#ifndef MY_INCLUDES_LED_TASK_H_
+#define MY_INCLUDES_LED_TASK_H_
+
+#include <stdint.h>
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function will initialize the LED task
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: 0 => Init was successful
+ * 			1 => Init failed
+ **************************************************************************************************************/
+uint8_t LEDTaskInit(void);
+
+
+
+/**************************************************************************************************************
+ * USAGE: XXXXXXXXXXX
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void LEDTask(void *pvParameters);
+
+
+
+
+
+
+#endif /* MY_INCLUDES_LED_TASK_H_ */

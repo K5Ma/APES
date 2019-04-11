@@ -1,0 +1,59 @@
+/*
+ * Master_Functions.c
+ *
+ *  Created on: Apr 9, 2019
+ *      Author: ik5m
+ */
+#include "Master_Functions.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+
+#include "Global_Defines.h"
+
+
+void Log_UART(uint8_t Src, char* LogLvl, char* Msg, int errnum)
+{
+	char MsgLog[200];										//Stores the complete error message
+	char ErrMsg_strerror[200];									//Stores the strerror_r error message
+
+	if(errnum != 0)
+	{
+		strerror_r(errnum, ErrMsg_strerror, 200);					//Get error via a thread-safe function
+	}
+	else
+	{
+		sprintf(ErrMsg_strerror, "User message");
+	}
+	sprintf(MsgLog, "%s: %s", Err_Msg, ErrMsg_strerror);		//Combine user message with the strerror
+
+
+	/* Get name of source */
+	char* Source_text;
+	switch(Src)
+	{
+		case Main:
+			Source_text = "Main Task";
+			break;
+
+		case Logger:
+			Source_text = "Logger Task";
+			break;
+
+		case Temp:
+			Source_text = "Temp Task";
+			break;
+
+		case LED:
+			Source_text = "LED Task";
+			break;
+
+		default:
+			Source_text = "Unknown Task";
+			break;
+	}
+
+	/* Output error to UART */
+	UARTprintf("[%u] %s Task (%s) => %s\n\n", xTaskGetTickCount(), Source_text, LogLvl, MsgLog);
+}

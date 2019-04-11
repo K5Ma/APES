@@ -1,0 +1,36 @@
+
+**** Clean-only build of configuration Debug for project RTOSDemo ****
+
+"C:\\ti\\ccs900\\ccs\\utils\\bin\\gmake" -k -j 4 clean -O 
+ 
+DEL /F  "RTOSDemo.hex"  "RTOSDemo.out" 
+DEL /F "main.obj" "printf-stdarg.obj" "Full_Demo\RegTest.obj" "Full_Demo\main_full.obj" "Simply_Blinky_Demo\main_blinky.obj" "ti\boards\CC3220SF_LAUNCHXL\CC3220SF_LAUNCHXL.obj" "ti\devices\cc32xx\driverlib\cpu.obj" "ti\devices\cc32xx\driverlib\flash.obj" "ti\devices\cc32xx\driverlib\gpio.obj" "ti\devices\cc32xx\driverlib\hwspinlock.obj" "ti\devices\cc32xx\driverlib\interrupt.obj" "ti\devices\cc32xx\driverlib\pin.obj" "ti\devices\cc32xx\driverlib\prcm.obj" "ti\devices\cc32xx\driverlib\spi.obj" "ti\devices\cc32xx\driverlib\systick.obj" "ti\devices\cc32xx\driverlib\udma.obj" "ti\devices\cc32xx\driverlib\utils.obj" "ti\drivers\dpl\ClockP_freertos.obj" "ti\drivers\dpl\DebugP_freertos.obj" "ti\drivers\dpl\HwiPCC32XX_freertos.obj" "ti\drivers\dpl\MutexP_freertos.obj" "ti\drivers\dpl\PowerCC32XX_freertos.obj" "ti\drivers\dpl\SemaphoreP_freertos.obj" "ti\drivers\dpl\SystemP_freertos.obj" "ti\drivers\gpio\GPIOCC32XX.obj" "ti\drivers\power\PowerCC32XX.obj" "ti\drivers\utils\List.obj" "ti\drivers\utils\RingBuf.obj" 
+DEL /F "ti\startup_cc32xx_ccs.obj" 
+DEL /F "main.d" "printf-stdarg.d" "Full_Demo\main_full.d" "Simply_Blinky_Demo\main_blinky.d" "ti\boards\CC3220SF_LAUNCHXL\CC3220SF_LAUNCHXL.d" "ti\devices\cc32xx\driverlib\cpu.d" "ti\devices\cc32xx\driverlib\flash.d" "ti\devices\cc32xx\driverlib\gpio.d" "ti\devices\cc32xx\driverlib\hwspinlock.d" "ti\devices\cc32xx\driverlib\interrupt.d" "ti\devices\cc32xx\driverlib\pin.d" "ti\devices\cc32xx\driverlib\prcm.d" "ti\devices\cc32xx\driverlib\spi.d" "ti\devices\cc32xx\driverlib\systick.d" "ti\devices\cc32xx\driverlib\udma.d" "ti\devices\cc32xx\driverlib\utils.d" "ti\drivers\dpl\ClockP_freertos.d" "ti\drivers\dpl\DebugP_freertos.d" "ti\drivers\dpl\HwiPCC32XX_freertos.d" "ti\drivers\dpl\MutexP_freertos.d" "ti\drivers\dpl\PowerCC32XX_freertos.d" "ti\drivers\dpl\SemaphoreP_freertos.d" "ti\drivers\dpl\SystemP_freertos.d" "ti\drivers\gpio\GPIOCC32XX.d" "ti\drivers\power\PowerCC32XX.d" "ti\drivers\utils\List.d" "ti\drivers\utils\RingBuf.d" "ti\startup_cc32xx_ccs.d" 
+DEL /F "Full_Demo\RegTest.d" 
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\RTOSDemo.hex
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\main.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\Full_Demo\RegTest.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\Simply_Blinky_Demo\main_blinky.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\boards\CC3220SF_LAUNCHXL\CC3220SF_LAUNCHXL.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\devices\cc32xx\driverlib\cpu.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\dpl\ClockP_freertos.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\gpio\GPIOCC32XX.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\power\PowerCC32XX.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\utils\List.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\startup_cc32xx_ccs.obj
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\main.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\Full_Demo\main_full.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\Simply_Blinky_Demo\main_blinky.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\boards\CC3220SF_LAUNCHXL\CC3220SF_LAUNCHXL.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\devices\cc32xx\driverlib\cpu.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\dpl\ClockP_freertos.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\gpio\GPIOCC32XX.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\power\PowerCC32XX.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\drivers\utils\List.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\ti\startup_cc32xx_ccs.d
+Could Not Find C:\Users\ik5m\Desktop\nbcxnxcb\CORTEX_M4_SimpleLink_CC3220SF_CCS\Debug\Full_Demo\RegTest.d
+Finished clean
+ 
+
+**** Build Finished ****

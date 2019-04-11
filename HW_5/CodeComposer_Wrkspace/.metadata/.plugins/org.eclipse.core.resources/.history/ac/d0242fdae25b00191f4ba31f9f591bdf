@@ -1,0 +1,481 @@
+/*
+ * Temp_Task.c
+ *
+ *  Created on: Apr 9, 2019
+ *      Author: Khalid AlAwadhi
+ */
+#include "Temp_Task.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+
+//FreeRTOS includes
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+
+/* Global Variables */
+extern QueueHandle_t xQueue_Logger;
+
+
+uint8_t Temp_TaskInit()
+{
+    //Create task, if it fails return 1, else 0
+    if( xTaskCreate(Temp_Task,						/* The function that implements the task */
+			   (const portCHAR *)"Temp",			/* The text name assigned to the task - for debug only as it is not used by the kernel */
+			   ((configMINIMAL_STACK_SIZE) * 1),	/* The size of the stack to allocate to the task */
+			   NULL,								/* The parameter passed to the task */
+			   PRIORITY_TEMP_TASK, 					/* The priority assigned to the task */
+			   NULL)								/* The task handle is not required, so NULL is passed */
+    			!= pdTRUE
+      )
+      {
+    	return 1;
+      }
+
+	return 0;
+}
+
+
+#define TEMP_SENSOR 0x48
+#define BUSY_WAIT
+
+
+
+void I2CSendByte(uint8_t target_address, uint8_t register_address, uint8_t data)
+{
+   //
+   // Tell the master module what address it will place on the bus when
+   // communicating with the slave.  Set the address to LUX_SENSOR
+   // (as set in the slave module).  The receive parameter is set to false
+   // which indicates the I2C Master is initiating a writes to the slave.  If
+   // true, that would indicate that the I2C Master is initiating reads from
+   // the slave.
+   //
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, false);
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, register_address);
+
+   //
+   // Initiate send of data from the master.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   /*
+   ** now wait for it to be non-busy
+   */
+   while(I2CMasterBusy(I2C2_BASE));
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, data);
+
+   //
+   // Initiate send of data from the master.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+}
+
+uint8_t I2CGetByte(uint8_t target_address, uint8_t register_address)
+{
+   //
+   // Tell the master module what address it will place on the bus when
+   // communicating with the slave.  Set the address to LUX_SENSOR
+   // (as set in the slave module).  The receive parameter is set to false
+   // which indicates the I2C Master is initiating a writes to the slave.  If
+   // true, that would indicate that the I2C Master is initiating reads from
+   // the slave.
+   //
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, false);
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, register_address);
+
+   //
+   // Initiate send of data from the master.  Since the loopback
+   // mode is enabled, the master and slave units are connected
+   // allowing us to receive the same data that we sent out.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+   /*
+   ** now switch to read mode
+   */
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, true);
+
+   /*
+   ** read one byte
+   */
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_RECEIVE);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+   return I2CMasterDataGet(I2C2_BASE);
+}
+
+
+uint16_t I2CGet2Bytes(uint8_t target_address, uint8_t register_address)
+{
+   //
+   // Tell the master module what address it will place on the bus when
+   // communicating with the slave.  Set the address to LUX_SENSOR
+   // (as set in the slave module).  The receive parameter is set to false
+   // which indicates the I2C Master is initiating a writes to the slave.  If
+   // true, that would indicate that the I2C Master is initiating reads from
+   // the slave.
+   //
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, false);
+
+   //
+   // Place the data to be sent in the data register
+   //
+   I2CMasterDataPut(I2C2_BASE, register_address);
+
+   //
+   // Initiate send of data from the master.  Since the loopback
+   // mode is enabled, the master and slave units are connected
+   // allowing us to receive the same data that we sent out.
+   //
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+   /*
+   ** now switch to read mode
+   */
+   I2CMasterSlaveAddrSet(I2C2_BASE, target_address, true);
+
+   /*
+   ** read one byte
+   */
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+   uint32_t data_one = I2CMasterDataGet(I2C2_BASE);
+
+   /*
+   ** read one byte
+   */
+   I2CMasterControl(I2C2_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+
+#ifdef BUSY_WAIT
+   //
+   // Wait until master module is says it's busy. Errata I2C#08
+   //
+   while(!I2CMasterBusy(I2C2_BASE));
+#endif
+
+   //
+   // Wait until master module is done
+   //
+   while(I2CMasterBusy(I2C2_BASE));
+
+   uint32_t data_two = I2CMasterDataGet(I2C2_BASE);
+
+   return (data_one << 8) | data_two;
+}
+
+volatile uint32_t g_ui32Counter = 0;
+
+//*****************************************************************************
+//
+// The interrupt handler for the for Systick interrupt.
+//
+//*****************************************************************************
+void
+SysTickIntHandler(void)
+{
+    //
+    // Update the Systick interrupt counter.
+    //
+    g_ui32Counter++;
+}
+
+void MS_Delay(uint32_t delay)
+{
+   uint32_t delay_start = g_ui32Counter;
+
+   while ( g_ui32Counter - delay_start < delay)
+   {
+      // wait.
+   }
+
+}
+
+
+void Temp_Task(void *pvParameters)
+{
+
+	 /* Block for 100 ms (10Hz) */
+	const TickType_t xDelay = 100 / portTICK_PERIOD_MS;
+
+
+#if defined(TARGET_IS_TM4C129_RA0) ||                                         \
+    defined(TARGET_IS_TM4C129_RA1) ||                                         \
+    defined(TARGET_IS_TM4C129_RA2)
+    uint32_t ui32SysClock;
+#endif
+
+    //
+    // Set the clocking to run directly from the external crystal/oscillator.
+    // TODO: The SYSCTL_XTAL_ value must be changed to match the value of the
+    // crystal on your board.
+    //
+#if defined(TARGET_IS_TM4C129_RA0) ||                                         \
+    defined(TARGET_IS_TM4C129_RA1) ||                                         \
+    defined(TARGET_IS_TM4C129_RA2)
+    ui32SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |
+                                       SYSCTL_OSC_MAIN |
+                                       SYSCTL_USE_OSC), 25000000);
+#else
+    SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
+                   SYSCTL_XTAL_16MHZ);
+#endif
+
+    //
+    // The I2C2 peripheral must be enabled before use.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C2);
+
+    //
+    // For this example I2C2 is used with PortN[5:4].  The actual port and
+    // pins used may be different on your part, consult the data sheet for
+    // more information.  GPIO port B needs to be enabled so these pins can
+    // be used.
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
+
+    //
+    // Configure the pin muxing for I2C2 functions on port B2 and B3.
+    // This step is not necessary if your part does not support pin muxing.
+    // TODO: change this to select the port/pin you are using.
+    //
+
+    GPIOPinConfigure(GPIO_PN4_I2C2SDA);
+    GPIOPinConfigure(GPIO_PN5_I2C2SCL);
+
+    //
+    // Select the I2C function for these pins.  This function will also
+    // configure the GPIO pins pins for I2C operation, setting them to
+    // open-drain operation with weak pull-ups.  Consult the data sheet
+    // to see which functions are allocated per pin.
+    // TODO: change this to select the port/pin you are using.
+    //
+    GPIOPinTypeI2CSCL(GPIO_PORTN_BASE, GPIO_PIN_5);
+    GPIOPinTypeI2C(GPIO_PORTN_BASE, GPIO_PIN_4);
+
+
+
+    //
+    // Initialize the interrupt counter.
+    //
+    g_ui32Counter = 0;
+
+    //
+    // Enable and initialize the I2C2 master module.  Use the system clock for
+    // the I2C2 module.  The last parameter sets the I2C data transfer rate.
+    // If false the data rate is set to 100kbps and if true the data rate will
+    // be set to 400kbps.  For this example we will use a data rate of 100kbps.
+    //
+#if defined(TARGET_IS_TM4C129_RA0) ||                                         \
+    defined(TARGET_IS_TM4C129_RA1) ||                                         \
+    defined(TARGET_IS_TM4C129_RA2)
+    I2CMasterInitExpClk(I2C2_BASE, ui32SysClock, false);
+#else
+    I2CMasterInitExpClk(I2C2_BASE, SysCtlClockGet(), false);
+#endif
+
+    /*
+    ** set systick to 1 millisecond. Roughly.
+    */
+    SysTickPeriodSet(ui32SysClock / 1500);
+
+    //
+    // Enable the SysTick Interrupt.
+    //
+    SysTickIntEnable();
+
+    //
+    // Enable SysTick.
+    //
+    SysTickEnable();
+
+
+    //
+    // Set up the serial console to use for displaying messages.  This is
+    // just for this example program and is not needed for I2C operation.
+    //
+    InitConsole();
+
+    //
+    // Display the example setup on the console.
+    //
+    UARTprintf(" Power up LUX sensor \n");
+
+    I2CSendByte(LUX_SENSOR, 0x80, 0x03);
+
+    UARTprintf(" read LUX sensor \n");
+
+    while (true)
+    {
+       uint32_t low = I2CGetByte(LUX_SENSOR,0x8c);
+       uint32_t high = I2CGetByte(LUX_SENSOR,0x8d);
+
+       uint32_t lux = (high << 8) | low;
+
+       UARTprintf("\n LUX = 0x%x (%d) ",lux,lux);
+
+       /*
+       ** temperature is twos complement signed
+       */
+       int16_t temperature = I2CGet2Bytes(TEMP_SENSOR, 0x00);
+
+       temperature >>= 4;  // this should do sign extension
+
+       float temp;
+       bool negative_temp = false;
+
+       if (temperature < 0)
+       {
+          temperature = ~temperature + 1;
+          negative_temp = true;
+       }
+
+       temp = 0.0625 * temperature;
+
+       if (negative_temp)
+       {
+          temp *= -1.0;
+       }
+
+       /*
+       ** now convert temperature to two integers for printing
+       */
+       uint32_t temp_uint = (uint32_t) (10000.0 * temp);
+
+
+//       UARTprintf("\n raw temp = 0x%x (%d) ",temperature,temperature);
+       UARTprintf(" temperature = %d.%dC",temp_uint / 10000, temp_uint % 10000);
+
+//       UARTprintf("\n systick counter = %d",g_ui32Counter);
+
+       MS_Delay(1000);
+
+    }
+
+
+
+    //
+    // Tell the user that the test is done.
+    //
+    UARTprintf("\nDone.\n\n");
+
+    //
+    // Return no errors
+    //
+
+
+	while(1)
+	{
+//		/* Turn D1 and D2 ON */
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_PIN_1);
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);
+//
+//		vTaskDelay(xDelay);
+//
+//		/* Turn D1 and D2 OFF */
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, 0);
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, 0);
+//
+//		vTaskDelay(xDelay);
+//
+//		ToggleCount++;
+//
+//		/* Create Msg to send */
+//		struct MsgStruct TXMessage;
+//		TXMessage.Source = LED;
+//		strcpy(TXMessage.Msg, "Khalid");
+//		TXMessage.Value = ToggleCount;
+//
+//		/* Send Msg to Logger Task */
+//		xQueueSend( xQueue_Logger, &TXMessage, ( TickType_t ) 0 );
+	}
+}

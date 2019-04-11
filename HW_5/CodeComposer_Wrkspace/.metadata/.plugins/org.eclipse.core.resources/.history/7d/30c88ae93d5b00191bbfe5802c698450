@@ -1,0 +1,144 @@
+/*
+ * AESD (APES) HW 5
+ *
+ * By Khalid AlAwadhi - Spring 2019
+ *
+ * Uses FreeRTOS 9.0, additionally all the driver source files were updated to 2.1.4.178
+ *
+ * This base project was gotten from GitHub:
+ * https://github.com/akobyl/TM4C129_FreeRTOS_Demo
+ *
+ */
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+
+//TivaWare includes
+#include "driverlib/sysctl.h"
+#include "driverlib/debug.h"
+#include "drivers/pinout.h"
+#include "utils/uartstdio.h"
+
+//FreeRTOS includes
+#include "FreeRTOSConfig.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+#include "Logger_Task.h"
+#include "LED_Task.h"
+
+/* Global Variables */
+QueueHandle_t xQueue_Logger = NULL;				//This is the queue the Logger Task will read from and other tasks will send to
+
+
+/* LAST WORKING ON:
+ *
+ * WORK ON LOGGING FUNCTION NEED TO GET THAT WORKING USOING BUFFER SEND AND RECIVE
+ *
+ * THEN START I2C
+ */
+
+/*
+ * ++++++++++ TO-DO: ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * 1- [] CREATE TEMPRATURE TASK
+ *
+ * 2- [COMPLETED] CREATE LED TASK
+ * 				L-> CREATED LED_Task.h/.c
+ *
+ * 3- [COMPLETED] CREATE LOGGER TASK
+ * 				L-> CREATED Logger_Task.h/.c
+ *
+ * 4- [] temperature task should read temperature values from the TMP102 sensor at a frequency of 1Hz
+ *
+ * 5- [] The temperature value read along with a timestamp should be passed as a structure to the
+ *       logger task using FreeRTOS IPC mechanism.
+ *
+ * 6- [] The LED Task should toggle LEDs D1 and D2 on the TIVA board at a frequency of 10Hz, and pass
+ *       a structure containing a time stamp, toggle count and your name to the Logger task using a
+ *       FreeRTOS mechanism.
+ *
+ * 7- [] The logger task should receive the messages from both the above tasks and log these values to
+ *       UART so that the logs can be viewed on the HOST machine.
+ *
+ * 8- [] UNDERSTAND PRIORTIES - HOW AND WHEN DOES IT SWITCH TO LOWER PRIORTIES???
+ *
+ * 9- [COMPLETED] IMPLEMENT QUEUE IN LOGGER TASK
+ *
+ * 10- [COMPLETED] INIT UART AND TEST
+ *
+ * 11- [COMPLETED] ADD MY ERROR LOG FUNCTION
+ * 				L-> CHANGED IT HEAVILY, IT IS NOW Log_UART() FOUND IN Master_Functions.h/.c
+ *
+ * 12- []
+ *
+ */
+
+
+int main()
+{
+	/* Initialize system clock to 120 MHz */
+	uint32_t output_clock_rate_hz = SysCtlClockFreqSet( (SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480), SYSTEM_CLOCK);
+	ASSERT(output_clock_rate_hz == SYSTEM_CLOCK);
+
+	/* Initialize the GPIO pins for the Launchpad */
+	PinoutSet(false, false);
+
+	/* Set up the UART which is connected to the virtual COM port */
+	UARTStdioConfig(UART_PORT, UART_BAUD, SYSTEM_CLOCK);
+	Log_UART(Main, "INFO", "UART initialized successfully!");
+
+	/* Init Logger Task */
+	if(Logger_TaskInit())
+	{
+		Log_UART(Main, "ERROR", "Unable to init Logger task x_x");
+	}
+
+//	/* Init Temprature Task */
+//	if(LEDTaskInit())
+//	{
+//		//ERROR
+//	}
+
+	/* Init LED Task */
+	if(LED_TaskInit())
+	{
+		Log_UART(Main, "ERROR", "Unable to init LED task x_x");
+	}
+
+	vTaskStartScheduler();
+	return 0;
+}
+
+
+//	 xTaskCreate(demoSerialTask, (const portCHAR *)"Serial",
+//	              configMINIMAL_STACK_SIZE, NULL, 0, NULL);
+
+//// Write text over the Stellaris debug interface UART port
+//void demoSerialTask(void *pvParameters)
+//{
+//    // Set up the UART which is connected to the virtual COM port
+//    UARTStdioConfig(0, 57600, SYSTEM_CLOCK);
+//
+//
+//    for (;;)
+//    {
+//        UARTprintf("\r\nHello, world from FreeRTOS 9.0!");
+//        vTaskDelay(5000 / portTICK_PERIOD_MS);
+//    }
+//}
+
+/*  ASSERT() Error function
+ *
+ *  failed ASSERTS() from driverlib/debug.h are executed in this function
+ */
+void __error__(char *pcFilename, uint32_t ui32Line)
+{
+    // Place a breakpoint here to capture errors until logging routine is finished
+    while (1)
+    {
+    }
+}

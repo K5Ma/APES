@@ -1,0 +1,14 @@
+
+**** Clean-only build of configuration Debug for project freertos_demo ****
+
+"C:\\ti\\ccs900\\ccs\\utils\\bin\\gmake" -k clean 
+ 
+DEL /F  "freertos_demo.bin"  "freertos_demo.out" 
+DEL /F "cgifuncs.obj" "display_task.obj" "freertos_demo.obj" "fs.obj" "idle_task.obj" "images.obj" "led_task.obj" "lwip_task.obj" "random.obj" "spider_task.obj" "startup_ccs.obj" "drivers\frame.obj" "drivers\kentec320x240x16_ssd2119.obj" "drivers\pinout.obj" "drivers\touch.obj" "third_party\FreeRTOS\Source\croutine.obj" "third_party\FreeRTOS\Source\list.obj" "third_party\FreeRTOS\Source\queue.obj" "third_party\FreeRTOS\Source\tasks.obj" "third_party\FreeRTOS\Source\timers.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.obj" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.obj" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.obj" "third_party\lwip-1.4.1\apps\httpserver_raw\httpd.obj" "utils\locator.obj" "utils\lwiplib.obj" "utils\ustdlib.obj" 
+DEL /F "cgifuncs.d" "display_task.d" "freertos_demo.d" "fs.d" "idle_task.d" "images.d" "led_task.d" "lwip_task.d" "random.d" "spider_task.d" "startup_ccs.d" "drivers\frame.d" "drivers\kentec320x240x16_ssd2119.d" "drivers\pinout.d" "drivers\touch.d" "third_party\FreeRTOS\Source\croutine.d" "third_party\FreeRTOS\Source\list.d" "third_party\FreeRTOS\Source\queue.d" "third_party\FreeRTOS\Source\tasks.d" "third_party\FreeRTOS\Source\timers.d" "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\port.d" "third_party\FreeRTOS\Source\portable\MemMang\heap_2.d" "third_party\lwip-1.4.1\apps\httpserver_raw\httpd.d" "utils\locator.d" "utils\lwiplib.d" "utils\ustdlib.d" 
+DEL /F "third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.d" 
+Could Not Find C:\Users\ik5m\OneDrive\Current_Semester\ECEN_5013_APES\CodeComposer_Wrkspace\freertos_demo\Debug\third_party\FreeRTOS\Source\portable\CCS\ARM_CM4F\portasm.d
+Finished clean
+ 
+
+**** Build Finished ****

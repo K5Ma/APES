@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="com.ti.ccstudio.project.ui.internal.properties.DynamicPropertiesPageManager">
+		<item value="true" key="CCS.VIEW_ADVANCED"/>
+	</section>
+	<section name="com.ti.ccstudio.project.ui.internal.preferences.DynamicPreferencePageManager">
+	</section>
+	<section name="CCS.ImportCCSProjectWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_IMPORT_REFERENCED_PROJECTS_ID"/>
+		<item value="C:\Users\ik5m\Desktop\ECEN_LUX_Temp\ECEN_LUX_Temp\LUX_Temp_w_busywait" key="WizardProjectsImportPage.BROWSE_DIRS_FILTER"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="C:\Users\ik5m\Desktop\TM4C129_FreeRTOS_Demo-master.zip" key="WizardProjectsImportPage.BROWSE_ZIPS_FILTER"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+	</section>
+</section>

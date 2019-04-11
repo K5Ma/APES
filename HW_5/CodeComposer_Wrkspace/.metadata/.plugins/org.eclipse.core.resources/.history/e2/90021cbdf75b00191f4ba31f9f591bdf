@@ -1,0 +1,115 @@
+/*
+ * Temp_Task.c
+ *
+ *  Created on: Apr 9, 2019
+ *      Author: Khalid AlAwadhi
+ */
+#include "Temp_Task.h"
+
+//Standard includes
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+//TivaWare includes
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/i2c.h"
+
+//FreeRTOS includes
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+//My includes
+#include "Global_Defines.h"
+#include "Master_Functions.h"
+#include "My_TMP102_Driver.h"
+
+/* Global Variables */
+extern QueueHandle_t xQueue_Logger;
+
+
+uint8_t Temp_TaskInit()
+{
+    //Create task, if it fails return 1, else 0
+    if( xTaskCreate(Temp_Task,						/* The function that implements the task */
+			   (const portCHAR *)"Temp",			/* The text name assigned to the task - for debug only as it is not used by the kernel */
+			   ((configMINIMAL_STACK_SIZE) * 1),	/* The size of the stack to allocate to the task */
+			   NULL,								/* The parameter passed to the task */
+			   PRIORITY_TEMP_TASK, 					/* The priority assigned to the task */
+			   NULL)								/* The task handle is not required, so NULL is passed */
+    			!= pdTRUE
+      )
+      {
+    	return 1;
+      }
+
+	return 0;
+}
+
+
+
+void Temp_Task(void *pvParameters)
+{
+	/* Init I2C peripheral */
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
+
+	/* Init GPIO PORT B as SCL and SDA are on that PORT - NOT NEEDED AS IT IS DONE IN MAIN PinoutSet() */
+	//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+
+	/* Configure PINs PB2(SCL) and PB3(SDA) */
+	GPIOPinConfigure(GPIO_PB2_I2C0SCL);
+	GPIOPinConfigure(GPIO_PB3_I2C0SDA);
+
+	/* Set function for these PINs, setting them to
+	 * open-drain operation with weak pull-ups */
+	GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
+	GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
+
+	/* Enable and initialize the I2C2 master module.
+	 * Use the system clock for the I2C0 module */
+	I2CMasterInitExpClk(I2C0_BASE, SYSTEM_CLOCK, USE_400KBPS_DATARATE);
+
+
+	/* Wakeup TMP102 sensor */
+	TMP102_Wakeup();
+
+	/* Get temp */
+	float test_temp = TMP102_ReadTempC();
+
+
+
+
+	 /* Block for 100 ms (10Hz) */
+	const TickType_t xDelay = 100 / portTICK_PERIOD_MS;
+
+
+	while(1)
+	{
+//		/* Turn D1 and D2 ON */
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_PIN_1);
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);
+//
+//		vTaskDelay(xDelay);
+//
+//		/* Turn D1 and D2 OFF */
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_1, 0);
+//		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, 0);
+//
+//		vTaskDelay(xDelay);
+//
+//		ToggleCount++;
+//
+//		/* Create Msg to send */
+//		struct MsgStruct TXMessage;
+//		TXMessage.Source = LED;
+//		strcpy(TXMessage.Msg, "Khalid");
+//		TXMessage.Value = ToggleCount;
+//
+//		/* Send Msg to Logger Task */
+//		xQueueSend( xQueue_Logger, &TXMessage, ( TickType_t ) 0 );
+	}
+}

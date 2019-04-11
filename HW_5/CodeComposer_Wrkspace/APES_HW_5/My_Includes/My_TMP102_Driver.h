@@ -1,0 +1,287 @@
+/*
+ * My_TMP102_Driver.h
+ *
+ *  Created on: Apr 10, 2019
+ *      Author: Khalid AlAwadhi
+ *
+ ---------------------------------------------------------------------------------------------
+ * # LIBRARY VERSION: v1.0
+ *
+ * # INFO: This library was developed to interface with the TMP102 sensor via I2C.
+ *
+ * # DEVLEPOMENT: Developed using Code Composer v9 for the Tiva EK-TM4C129XL board.
+ *
+ * # LAST UPDATED ON: April 10th 2019 - Used in AESD(APES) Homework 5
+ *
+ * # EXTRA:
+ *  This library was developed by referencing the Arduino code written by:
+ *  Alex Wende @ SparkFun Electronics - TMP102_example.ino
+ *
+ *  Additionally, Tiva I2C code help was taken from:
+ *  https://github.com/rheidebr/ECEN5013-LUX_Temp_demo
+ *  Which was provided by Prof. Rick Heidebrecht
+ ---------------------------------------------------------------------------------------------*/
+
+#ifndef MY_INCLUDES_MY_TMP102_DRIVER_H_
+#define MY_INCLUDES_MY_TMP102_DRIVER_H_
+
+#include <stdint.h>
+#include <stdbool.h>
+
+
+/*****************************************
+ *      TMP102 Sensor Defines            *
+ *****************************************/
+#define TMP102_ADDR						0x48
+#define USE_400KBPS_DATARATE			false 		//If set to TRUE => use 400 Kbps data rate, else if FALSE => use 100 Kbps data rate
+
+#define TEMPERATURE_REGISTER			0x00
+#define CONFIG_REGISTER					0x01
+#define T_LOW_REGISTER					0x02
+#define T_HIGH_REGISTER					0x03
+
+#define READ							true
+#define WRITE 							false
+
+
+/**************************************************************************************************************
+ * USAGE: This function initializes I2C- on the Tiva board.
+ * 				- Init I2C peripheral
+ * 				- Init GPIO PORT B as SCL and SDA are on that PORT
+ * 				- Configure PINs PB2(SCL) and PB3(SDA)
+ * 				- Set the function for these PINs: Open-drain operation with weak pull-ups
+ * 				- Enable and initialize the I2C2 master module. Use the system clock for the I2C0 module
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void Init_I2C0();
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function inits PIN PM5 to be an INPUT for the Alert pin coming from the sensor.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void Init_Alert_PIN_Polling();
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function checks if the alert PIN is triggered.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: TRUE => Alert triggered
+ * 			FALSE => No alert triggered
+ **************************************************************************************************************/
+bool Alert_PIN_Poll();
+
+
+
+/**************************************************************************************************************
+ * USAGE: Internal helper function: used to send a byte of data to a specified slave address and into a
+ * 		  specific register.
+ *
+ * PARAMETERS:
+ *            - uint8_t Slave_Addr => The slave address to send the data to
+ *            - uint8_t Register_Addr => The internal register address to store data in
+ *            - uint8_t Data => The data to send
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void I2C_SendByte(uint8_t Slave_Addr, uint8_t Register_Addr, uint8_t Data);
+
+
+
+/**************************************************************************************************************
+ * USAGE: Internal helper function: used to send two bytes of data to a specified slave address and into a
+ * 		  specific register.
+ *
+ * PARAMETERS:
+ *            - uint8_t Slave_Addr => The slave address to send the data to
+ *            - uint8_t Register_Addr => The internal register address to store data in
+ *            - uint8_t Data1 => First byte to send
+ *            - uint8_t Data1 => Second byte to send
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void I2C_SendTwoBytes(uint8_t Slave_Addr, uint8_t Register_Addr, uint8_t Data1, uint8_t Data2);
+
+
+
+/**************************************************************************************************************
+ * USAGE: Internal helper function: used to change the pointer address in the TMP102 sensor.
+ *
+ * PARAMETERS:
+ *            - TEMPERATURE_REGISTER	0x00
+ *            - CONFIG_REGISTER			0x01
+ *            - T_LOW_REGISTER			0x02
+ *            - T_HIGH_REGISTER			0x03
+ *              (Also defined above)
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_OpenPointerRegister(uint8_t pointerReg);
+
+
+
+/**************************************************************************************************************
+ * USAGE: Internal helper function: used to read a register after TMP102_OpenPointerRegister() is called.
+ *
+ * PARAMETERS:
+ *            - bool RegisterNumber => 0: Returns MSB
+ *                                     1: Returns LSB
+ *
+ * RETURNS: uint8_t Register_Data
+ **************************************************************************************************************/
+uint8_t TMP102_ReadRegister(bool RegisterNumber);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function will turn the sensor ON to start temperature measurements. Current consumption is
+ *        typically ~10uA.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_Wakeup();
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function will place the sensor in sleep mode to save power. Current consumption
+ * 		  typically < 0.5uA.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_Sleep();
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function will return the current temperature in C.
+ *
+ * PARAMETERS:
+ *            - NONE
+ *
+ * RETURNS: float Temp_in_C
+ **************************************************************************************************************/
+float TMP102_ReadTempC();
+
+
+
+/*
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !! FOR API CALLS BELOW:											 !!
+ * !! These settings are saved in the sensor, even if it loses power !!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ */
+/**************************************************************************************************************
+ * USAGE: This function set the number of consecutive faults before triggering the alert.
+ *
+ * PARAMETERS:
+ *            - uint8_t fault => 0: 1 fault			[DEFAULT]
+ * 						   		 1: 2 faults
+ * 						   		 2: 4 faults
+ * 						   		 3: 6 faults
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetFault(uint8_t fault);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets the polarity of the alert.
+ *
+ * PARAMETERS:
+ *            - bool Polarity => 0: Active LOW
+ *            					 1: Active HIGH
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetAlertPolarity(bool Polarity);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets the sensor in either Comparator Mode or Interrupt Mode.
+ *
+ * PARAMETERS:
+ *            - bool Mode => 0: Comparator Mode
+ *            				 1: Interrupt Mode
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetAlertMode(bool Mode);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets the Conversion Rate (how quickly the sensor gets a new reading).
+ *
+ *
+ * PARAMETERS:
+ *            - uint8_t ConvR => 0: 0.25Hz
+ *            					 1: 1Hz
+ *            					 2: 4Hz
+ *            					 3: 8Hz			[DEFAULT]
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetConversionRate(uint8_t ConvR);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets Extended Mode.
+ *
+ * PARAMETERS:
+ *            - bool Mode => 0: 12-BIT Temperature (-55C to +128C)
+ *            				 1: 13-BIT Temperature (-55C to +150C)
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetExtendedMode(bool Mode);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets T_HIGH, the upper limit to trigger the alert on.
+ *
+ * PARAMETERS:
+ *            - float T_HIGH_val => the T_HIGH upper limit in degrees C
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetHighTempC(float T_HIGH_val);
+
+
+
+/**************************************************************************************************************
+ * USAGE: This function sets T_LOW, the lower limit to turn off the alert.
+ *
+ * PARAMETERS:
+ *            - float T_LOW_val => the T_LOW lower limit in degrees C
+ *
+ * RETURNS: NONE
+ **************************************************************************************************************/
+void TMP102_SetLowTempC(float T_LOW_val);
+
+
+
+#endif /* MY_INCLUDES_MY_TMP102_DRIVER_H_ */
